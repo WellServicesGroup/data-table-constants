@@ -1,6 +1,6 @@
 <?php
 
-namespace WellServicesGroup;
+namespace WellServicesGroup\DataTableConstants;
 
 use Illuminate\Support\Facades\URL;
 

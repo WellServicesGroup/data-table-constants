@@ -5,5 +5,10 @@
     "minimum-stability": "stable",
     "require": {
         "illuminate/support": "5.4.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "WellServicesGroup\\DataTableConstants\\": "src"
+        }
     }
 }

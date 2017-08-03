@@ -1,0 +1,9 @@
+{
+    "name": "wellservicesgroup/data-table-constants",
+    "type": "library",
+    "license": "proprietary",
+    "minimum-stability": "stable",
+    "require": {
+        "illuminate/support": "5.4.*"
+    }
+}

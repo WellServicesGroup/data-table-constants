@@ -3,6 +3,7 @@
 namespace WellServicesGroup\DataTableConstants\Facades;
 
 use Illuminate\Support\Facades\Facade as BaseFacade;
+use WellServicesGroup\DataTableConstants\DataTableConstants;
 
 class Facade extends BaseFacade
 {
@@ -13,6 +14,6 @@ class Facade extends BaseFacade
      */
     protected static function getFacadeAccessor()
     {
-        return 'DBConstants';
+        return DataTableConstants::class;
     }
 }

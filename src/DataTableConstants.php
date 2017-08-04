@@ -906,7 +906,7 @@ class DataTableConstants
      */
     public function getAjaxColumns($tableName)
     {
-        if (self::isAjax($tableName)
+        if ($this->isAjax($tableName)
             && key_exists('columns', $this->tableDefinition[$tableName]['ajax'])
         ) {
             return $this->tableDefinition[$tableName]['ajax']['columns'];
@@ -922,7 +922,7 @@ class DataTableConstants
      */
     public function getAjaxUrl($tableName, $type = 'route')
     {
-        if (self::isAjax($tableName)
+        if ($this->isAjax($tableName)
             && key_exists('url', $this->tableDefinition[$tableName]['ajax'])
         ) {
             $url = $this->tableDefinition[$tableName]['ajax']['url'];

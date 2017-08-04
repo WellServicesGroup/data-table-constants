@@ -23,7 +23,7 @@ class DataTableConstantsServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('WellServicesGroup\DataTableConstants\DataTableConstants', function () {
+        $this->app->singleton(DataTableConstants::class, function () {
             return new DataTableConstants();
         });
     }

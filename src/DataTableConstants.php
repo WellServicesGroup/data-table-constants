@@ -6,72 +6,11 @@ use Illuminate\Support\Facades\URL;
 
 class DataTableConstants
 {
-    protected $tableDefinition;
+    protected $tableDefinitions;
 
     public function __construct()
     {
-        $this->tableDefinition = [
-            'action-points' => [
-                'columns' => [
-                    'action_point_number' => 'name',
-                    'action_point_description' => 'description',
-                    'action_point_current_status' => 'current_status',
-                    'action_point_job_number' => 'job_number',
-                    'action_point_customer' => 'customer',
-                    'action_point_job_location' => 'job_location',
-                    'action_point_type' => 'type',
-                    'action_point_due_date' => 'due_date',
-                    'action_point_groups' => 'tags',
-                ],
-                'ajax' => [
-                    'columns' => [
-                        [
-                            'data' => 'name',
-                            'name' => 'name',
-                        ],
-                        [
-                            'data' => 'description',
-                            'name' => 'description',
-                            'className' => 'dynamic-table__description',
-                        ],
-                        [
-                            'data' => 'current_status',
-                            'name' => 'current_status',
-                        ],
-                        [
-                            'data' => 'job_number',
-                            'name' => 'job_number',
-                        ],
-                        [
-                            'data' => 'customer',
-                            'name' => 'customer',
-                        ],
-                        [
-                            'data' => 'job_location',
-                            'name' => 'job_location',
-                        ],
-                        [
-                            'data' => 'type',
-                            'name' => 'type',
-                        ],
-                        [
-                            'data' => 'due_date',
-                            'name' => 'due_date',
-                            'className' => 'dynamic-table__date',
-                        ],
-                        [
-                            'data' => 'groups',
-                            'name' => 'groups',
-                        ],
-                    ],
-                    'url' => 'action-points.data',
-                ],
-            ],
-            'action-point-groups' => [
-                'columns' => [
-                    'action_point_group_name' => 'name',
-                ],
-            ],
+        $this->tableDefinitions = [
             'members' => [
                 'columns' => [
                     'member_name' => 'name',
@@ -859,11 +798,11 @@ class DataTableConstants
      */
     public function getColumnNames($tableName = null)
     {
-        if (array_key_exists($tableName, $this->tableDefinition)) {
-            return $this->tableDefinition[$tableName]['columns'];
+        if (array_key_exists($tableName, $this->tableDefinitions)) {
+            return $this->tableDefinitions[$tableName]['columns'];
         }
 
-        return array_reduce($this->tableDefinition, function ($result, $table) {
+        return array_reduce($this->tableDefinitions, function ($result, $table) {
             $result = array_merge($result, array_keys($table['columns']));
             return $result;
         }, []);
@@ -875,10 +814,10 @@ class DataTableConstants
      */
     public function getOrder($tableName)
     {
-        if (array_key_exists($tableName, $this->tableDefinition)
-            && array_key_exists('order', $this->tableDefinition[$tableName])
+        if (array_key_exists($tableName, $this->tableDefinitions)
+            && array_key_exists('order', $this->tableDefinitions[$tableName])
         ) {
-            return $this->tableDefinition[$tableName]['order'];
+            return $this->tableDefinitions[$tableName]['order'];
         }
 
         return [
@@ -895,9 +834,9 @@ class DataTableConstants
      */
     public function isAjax($tableName)
     {
-        return array_key_exists($tableName, $this->tableDefinition)
-            && array_key_exists('ajax', $this->tableDefinition[$tableName])
-            && array_key_exists('url', $this->tableDefinition[$tableName]['ajax']);
+        return array_key_exists($tableName, $this->tableDefinitions)
+            && array_key_exists('ajax', $this->tableDefinitions[$tableName])
+            && array_key_exists('url', $this->tableDefinitions[$tableName]['ajax']);
     }
 
     /**
@@ -907,9 +846,9 @@ class DataTableConstants
     public function getAjaxColumns($tableName)
     {
         if ($this->isAjax($tableName)
-            && key_exists('columns', $this->tableDefinition[$tableName]['ajax'])
+            && key_exists('columns', $this->tableDefinitions[$tableName]['ajax'])
         ) {
-            return $this->tableDefinition[$tableName]['ajax']['columns'];
+            return $this->tableDefinitions[$tableName]['ajax']['columns'];
         }
 
         return [];
@@ -923,9 +862,9 @@ class DataTableConstants
     public function getAjaxUrl($tableName, $type = 'route')
     {
         if ($this->isAjax($tableName)
-            && key_exists('url', $this->tableDefinition[$tableName]['ajax'])
+            && key_exists('url', $this->tableDefinitions[$tableName]['ajax'])
         ) {
-            $url = $this->tableDefinition[$tableName]['ajax']['url'];
+            $url = $this->tableDefinitions[$tableName]['ajax']['url'];
 
             switch ($type) {
                 case 'route':
@@ -938,5 +877,14 @@ class DataTableConstants
         }
 
         return null;
+    }
+
+    /**
+     * @param $table
+     * @param $definition
+     */
+    public function addDefinition($table, $definition)
+    {
+        $this->tableDefinitions[$table] = $definition;
     }
 }

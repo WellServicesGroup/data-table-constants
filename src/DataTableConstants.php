@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\URL;
 
 class DataTableConstants
 {
-    protected $tableDefinition = [
+    protected static $tableDefinition = [
         'action-points' => [
             'columns' => [
                 'action_point_number' => 'name',
